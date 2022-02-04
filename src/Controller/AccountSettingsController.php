@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\ChangePasswordType;
+use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -26,7 +26,7 @@ class AccountSettingsController extends AbstractController
         $notification = null;
 
         $user = $this->getUser();
-        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form = $this->createForm(SearchType::class, $user);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
