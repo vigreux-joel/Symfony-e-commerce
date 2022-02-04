@@ -4,7 +4,6 @@ namespace App\Classe;
 
 class Search
 {
-
     /**
      * @var string
      */
@@ -12,10 +11,7 @@ class Search
     /**
      * @var array
      */
-    private array $category = [];
-
-
-
+    private array $categories = [];
 
 
     /**
@@ -37,17 +33,17 @@ class Search
     /**
      * @return array
      */
-    public function getCategory(): array
+    public function getCategories(): array
     {
-        return $this->category;
+        return $this->categories;
     }
 
     /**
-     * @param array $category
+     * @param array $categories
      */
-    public function setCategory(array $category): void
+    public function setCategories(array $categories): void
     {
-        $this->category = $category;
+        $this->categories = $categories;
     }
 
 

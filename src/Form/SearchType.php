@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Classe\Search;
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,48 +20,27 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstname', TextType::class, [
-                'disabled' => true,
-                'label' => 'Mon prénom'
-            ])
-            ->add('lastname', TextType::class, [
-                'disabled' => true,
-                'label' => 'Mon nom'
-            ])
-            ->add('email', EmailType::class,[
-                'label' => 'Mon adresse email'
-            ])
-            ->add('old_password', PasswordType::class, [
-                'label' => 'Mot de passe actuel',
-                'mapped' => false,
-                'required' => true,
+            ->add('string', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'empty_data' => '',
                 'attr' => [
-                    'placeholder' => 'Votre mot de passe actuel'
+                    'placeholder' => 'Votre recherche',
+                    'class' => 'form-control-sm'
                 ]
             ])
-            ->add('new_password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'mapped' => false,
-                'constraints' => [
-                    new Length(null, 8),
-                ],
-                'invalid_message' => 'Le mot de passe et la confirmation doivent être identique',
+            ->add('categories', EntityType::class, [
+                'label' => false,
                 'required' => false,
-                'first_options' => [
-                    'label' => 'Nouveau mot de passe (Facultatif)',
-                    'attr' => [
-                        'placeholder' => 'Votre nouveau mot de passe'
-                    ]
-                ],
-                'second_options' => [
-                    'label' => 'Confirmer votre nouveau mot de passe',
-                    'attr' => [
-                        'placeholder' => 'Confirmez votre nouveau mot de passe'
-                    ]
-                ],
+                'class' => Category::class,
+                'multiple' => true,
+                'expanded' => true
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => "Mettre à jour"
+            ->add('submit', SubmitType::class,  [
+                'label' => 'Filtrer',
+                'attr' => [
+                    'class' => 'btn-block btn-info'
+                ]
             ])
         ;
     }
@@ -67,7 +48,15 @@ class SearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Search::class,
+            'method' => 'GET',
+            'csrf_protection' => false,
         ]);
+    }
+
+
+    public function getBlockPrefix(): string
+    {
+        return '';
     }
 }

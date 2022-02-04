@@ -49,7 +49,7 @@ class RegisterController extends AbstractController
                 $this->entityManager->flush();
 
                 //code rajouté
-                return $this->redirectToRoute('login.index');
+                return $this->redirectToRoute('app_login');
             } catch (UniqueConstraintViolationException $e) {
                 $form->get('email')->addError(new FormError('Cet email est déjà utilisé'));
             }
