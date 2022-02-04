@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - La boutique France{% endblock %}
+
+{% block content %}
+    <h1>Mon compte</h1>
+    Bienvnue {{ app.user.firstname }} sur votre compte.
+    <hr>
+    <a href="{{ path('account_settings') }}">Modifier mes informations</a>
+
+{% endblock %}

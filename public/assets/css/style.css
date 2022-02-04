@@ -1,0 +1,49 @@
+body {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 150px !important;
+}
+
+header .navbar-item-custom {
+  color: white;
+}
+header .navbar-item-custom a {
+  color: white;
+}
+
+main {
+  padding-bottom: 3rem;
+}
+
+footer {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  max-width: 100% !important;
+  background-color: #dfeaff;
+  padding: 1.5rem 0;
+}
+
+.product-item {
+  margin-top: 3rem;
+}
+.product-item h5 {
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin-bottom: 0.1rem;
+}
+.product-item .product-subtitle {
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 10px;
+}
+.product-item .product-price {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.product-page-price {
+  font-size: 1.2rem;
+}
+
+/*# sourceMappingURL=style.css.map */
