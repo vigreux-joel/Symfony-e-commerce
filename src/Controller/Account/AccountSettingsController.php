@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Account;
 
+use App\Form\SettingsType;
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,7 @@ class AccountSettingsController extends AbstractController
         $notification = null;
 
         $user = $this->getUser();
-        $form = $this->createForm(SearchType::class, $user);
+        $form = $this->createForm(SettingsType::class, $user);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
