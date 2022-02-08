@@ -2,10 +2,14 @@
 
 namespace App\Classe;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+ * @ApiResource()
+ */
 class Cart
 {
     private $session;
@@ -24,7 +28,7 @@ class Cart
         $this->session->set('cart', $cart);
     }
     public function get(){
-        return $this->session->get('cart');
+        return $this->session->get('cart')??[];
     }
     public function getAll(){
         $cartComplete = [];
