@@ -14,7 +14,8 @@
             <span class="product-page-price">{{ (product.price/100)|number_format(2, ',') }} €</span>
             <hr>
             <p>{{ product.description }}</p>
-            <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-primary">Ajouteur au panier</a>
+            {{ form(form) }}
+            <!--<a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-primary">Ajouteur au panier</a>-->
         </div>
     </div>
 

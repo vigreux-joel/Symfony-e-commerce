@@ -7,13 +7,12 @@ use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-/**
- * @ApiResource()
- */
+
 class Cart
 {
-    private $session;
-    private $entityManager;
+
+    private SessionInterface $session;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(SessionInterface $session, EntityManagerInterface $entityManager){
         $this->session = $session;

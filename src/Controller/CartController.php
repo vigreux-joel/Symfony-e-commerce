@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
+use App\Classe\CartManager;
+use App\Form\CartType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,11 +16,23 @@ class CartController extends AbstractController
     /**
      * @Route("/mon-panier", name="cart")
      */
-    public function index(Cart $cart): Response
+    public function index(CartManager $cartManager, Request $request): Response
     {
+        $cart = $cartManager->getCurrentCart($this->getUser());
+
+        $form = $this->createForm(CartType::class, $cart);
+        $form->handleRequest($request);
+        ;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $cart->setUpdatedAt(new \DateTime());
+            $cartManager->save($cart, $this->getUser());
+
+            return $this->redirectToRoute('cart');
+        }
 
         return $this->render('cart/index.html.twig', [
-            'cart' => $cart->getAll()
+            'cart' => $cart,
+            'form' => $form->createView()
         ]);
     }
 

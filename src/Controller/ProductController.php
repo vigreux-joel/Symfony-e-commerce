@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Classe\CartManager;
 use App\Classe\Search;
 use App\Entity\Product;
+use App\Form\AddToCartType;
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager){
         $this->entityManager = $entityManager;
@@ -43,19 +45,34 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/nos-produits/{slug}", name="product")
+     * @Route("/nos-produits/{slug}", name="product_detail")
      */
-    public function show($slug): Response
+    public function detail($slug,Request $request, CartManager $cartManager)
     {
-
+        //show($slug): Response
+        $form = $this->createForm(AddToCartType::class);
+        $form->handleRequest($request);
         $product = $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
 
-        if(!$product){
-            $this->redirectToRoute('products');
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $item = $form->getData();
+            $item->setProduct($product);
+
+            $cart = $cartManager->getCurrentCart($this->getUser());
+            $cart
+                ->addItem($item)
+                ->setUpdatedAt(new \DateTime());
+
+            $cartManager->save($cart, $this->getUser());
+
+            return $this->redirectToRoute('products');
         }
 
+
         return $this->render('product/show.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'form' => $form->createView()
         ]);
     }
 }
