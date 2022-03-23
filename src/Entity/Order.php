@@ -2,14 +2,21 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
  * @ORM\Table(name="`order`")
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read:order"}},
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  */
 class Order
 {
@@ -17,28 +24,33 @@ class Order
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:order"})
      */
     private $id;
 
     /**
      * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="orderRef", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Groups({"read:order"})
      */
     private $items;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=true)
+     * @Groups({"read:order"})
      */
     private $userRef;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:order"})
      */
     private $status = self::STATUS_CART;
     /**
      * An order that is in progress, not placed yet.
      *
      * @var string
+     * @Groups({"read:order"})
      */
     public const STATUS_CART = 'cart';
 
