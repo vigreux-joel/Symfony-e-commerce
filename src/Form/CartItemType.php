@@ -3,17 +3,23 @@
 namespace App\Form;
 
 use App\Entity\OrderItem;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\PositiveOrZero;
 
 class CartItemType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('quantity')
+            ->add('quantity', IntegerType::class, [
+                'constraints' => [
+                    new PositiveOrZero(),
+                ],
+            ])
             ->add('remove', SubmitType::class)
         ;
     }

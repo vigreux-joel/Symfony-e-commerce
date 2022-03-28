@@ -54,10 +54,11 @@ class CartSessionStorageService
      * @param OrderItemRepository $orderItemRepository
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(RequestStack $requestStack,
-                                OrderRepository $cartRepository,
-                                OrderItemRepository $orderItemRepository,
-                                EntityManagerInterface $entityManager)
+    public function __construct(
+        RequestStack $requestStack,
+        OrderRepository $cartRepository,
+        OrderItemRepository $orderItemRepository,
+        EntityManagerInterface $entityManager)
     {
         $this->requestStack = $requestStack;
         $this->cartRepository = $cartRepository;
@@ -68,17 +69,18 @@ class CartSessionStorageService
     /**
      * Gets the cart in session.
      *
+     * @param User|null $user
      * @return Order|null
      */
     public function getCart(?User $user): ?Order
     {
         $orders = [];
-
-        if(isset($user))
-        $orders = $this->cartRepository->findBy([
-            'userRef' => $user,
-            'status' => Order::STATUS_CART
-        ]);
+        if(isset($user)) {
+            $orders = $this->cartRepository->findBy([
+                'userRef' => $user,
+                'status' => Order::STATUS_CART
+            ]);
+        }
 
         $orderSession =  $this->cartRepository->findOneBy([
             'id' => $this->getCartId(),
@@ -89,11 +91,10 @@ class CartSessionStorageService
         }
 
         if(count($orders)>1){
-            //pour toutes les commandes de trop
             for($i = 1; $i<=count($orders)-1; $i++){
                 $idOrder = $orders[$i]->getId();
 
-                //pour tout les items de ces commandes
+
                 foreach($this->orderItemRepository->findBy([
                     'orderRef' => $idOrder
                 ]) as $item){

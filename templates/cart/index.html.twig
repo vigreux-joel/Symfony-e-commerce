@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-fill mr-2 text-right">
-                                    <b>{{ ((item.vars.data.product.price)/100)|number_format(2, ',') }} €</b>
+                                    <b>{{ (item.vars.data.product.price/100)|format_currency('EUR') }}</b>
                                 </div>
                             </li>
                         {% endfor %}
@@ -59,7 +59,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between">
                             <div><b>Total</b></div>
-                            <span><b>{{ ((cart.total)/100)|number_format(2, ',') }} €</b></span>
+                            <span><b>{{ (cart.total/100)|format_currency('EUR') }}</b></span>
                         </li>
                     </ul>
                     <div class="card-body">

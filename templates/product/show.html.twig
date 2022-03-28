@@ -11,7 +11,7 @@
         <div class="col-md-7 my-auto">
             <h3>{{ product.name }}</h3>
             <p>{{ product.subtitle }}</p>
-            <span class="product-page-price">{{ (product.price/100)|number_format(2, ',') }} €</span>
+            <span class="product-page-price">{{ (product.price/100)|format_currency('EUR') }} €</span>
             <hr>
             <p>{{ product.description }}</p>
             {{ form(form) }}
