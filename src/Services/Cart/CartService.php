@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Classe;
+namespace App\Services\Cart;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
-class Cart
+class CartService
 {
 
     private SessionInterface $session;

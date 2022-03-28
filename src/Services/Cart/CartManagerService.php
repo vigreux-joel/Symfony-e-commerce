@@ -1,42 +1,42 @@
 <?php
 
-namespace App\Classe;
+namespace App\Services\Cart;
 use App\Entity\Order;
-use App\Entity\User;
+use App\Services\OrderFactoryService;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class CartManager
  * @package App\Manager
  */
-class CartManager
+class CartManagerService
 {
     /**
-     * @var CartSessionStorage
+     * @var CartSessionStorageService
      */
-    private $cartSessionStorage;
+    private CartSessionStorageService $cartSessionStorage;
 
     /**
-     * @var OrderFactory
+     * @var OrderFactoryService
      */
-    private $cartFactory;
+    private OrderFactoryService $cartFactory;
 
     /**
      * @var EntityManagerInterface
      */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /**
      * CartManager constructor.
      *
-     * @param CartSessionStorage $cartStorage
-     * @param OrderFactory $orderFactory
+     * @param CartSessionStorageService $cartStorage
+     * @param OrderFactoryService $orderFactory
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
-        CartSessionStorage $cartStorage,
-        OrderFactory $orderFactory,
-        EntityManagerInterface $entityManager
+        CartSessionStorageService $cartStorage,
+        OrderFactoryService       $orderFactory,
+        EntityManagerInterface    $entityManager
     ) {
         $this->cartSessionStorage = $cartStorage;
         $this->cartFactory = $orderFactory;
@@ -46,6 +46,7 @@ class CartManager
     /**
      * Gets the current cart.
      *
+     * @param $user
      * @return Order
      */
     public function getCurrentCart($user): Order
@@ -64,6 +65,7 @@ class CartManager
      * Persists the cart in database and session.
      *
      * @param Order $cart
+     * @param $user
      */
     public function save(Order $cart, $user): void
     {

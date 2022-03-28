@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Classe;
+namespace App\Services;
 
-class Search
+class SearchService
 {
     /**
      * @var string

@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Classe\CartManager;
-use App\Classe\Search;
 use App\Entity\Product;
 use App\Form\AddToCartType;
 use App\Form\SearchType;
+use App\Services\Cart\CartManagerService;
+use App\Services\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,7 @@ class ProductController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $search = new Search();
+        $search = new SearchService();
 
         $form = $this->createForm(SearchType::class, $search);
 
@@ -47,7 +47,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/nos-produits/{slug}", name="product_detail")
      */
-    public function detail($slug,Request $request, CartManager $cartManager)
+    public function detail($slug, Request $request, CartManagerService $cartManager)
     {
         //show($slug): Response
         $form = $this->createForm(AddToCartType::class);

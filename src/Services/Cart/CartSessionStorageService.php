@@ -1,10 +1,9 @@
 <?php
 
 
-namespace App\Classe;
+namespace App\Services\Cart;
 
 use App\Entity\Order;
-use App\Entity\OrderItem;
 use App\Entity\User;
 use App\Repository\OrderItemRepository;
 use App\Repository\OrderRepository;
@@ -12,38 +11,38 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class CartSessionStorage
+class CartSessionStorageService
 {
     /**
      * The request stack.
      *
      * @var RequestStack
      */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     /**
      * The cart repository.
      *
      * @var OrderRepository
      */
-    private $cartRepository;
+    private OrderRepository $cartRepository;
 
     /**
      * The cart repository.
      *
      * @var OrderItemRepository
      */
-    private $orderItemRepository;
+    private OrderItemRepository $orderItemRepository;
 
     /**
      * @var EntityManagerInterface
      */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /**
      * @var string
      */
-    const CART_KEY_NAME = 'cart_id';
+    public const CART_KEY_NAME = 'cart_id';
 
 
 

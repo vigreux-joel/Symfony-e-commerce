@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classe;
+namespace App\Services;
 
 use App\Entity\Order;
 use App\Entity\OrderItem;
@@ -10,7 +10,7 @@ use App\Entity\Product;
  * Class OrderFactory
  * @package App\Factory
  */
-class OrderFactory
+class OrderFactoryService
 {
     /**
      * Creates an order.

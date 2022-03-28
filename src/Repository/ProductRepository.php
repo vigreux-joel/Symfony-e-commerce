@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Classe\Search;
+use App\Services\SearchService;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,11 +21,11 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-     * Requête qui me permet de récupérer les produits en fonction de la recherche de l'utilisateur
-     * @param Search $search
+     *
+     * @param SearchService $search
      * @return float|int|mixed|string
      */
-    public function findWithSearch(Search $search){
+    public function findWithSearch(SearchService $search){
         $query = $this
         ->createQueryBuilder('p')
         ->select('c', 'p')
@@ -46,32 +46,4 @@ class ProductRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
